@@ -19,7 +19,7 @@ const (
 	CONSOLE_AND_FILE
 )
 
-func InitLogger(logFileName string, outputOption int) {
+func Init(logFileName string, outputOption int) {
 	var output io.Writer
 
 	logfile, err := os.OpenFile(logFileName, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0644)
