@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	Logger.InitLogger("app.log", Logger.CONSOLE_AND_FILE)
+	Logger.Init("app.log", Logger.CONSOLE_AND_FILE)
 
 	Logger.Log(Logger.INFO, "Application started")
 	Logger.Log(Logger.DEBUG, "This is a debug message")
