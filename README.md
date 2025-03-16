@@ -1,61 +1,109 @@
 # Logger Package
 
-The Logger package is a very simple and flexible logging library for Go applications. It allows you to log messages at different levels (DEBUG, INFO, WARN, ERROR, FATAL) and supports multiple output options (console only, file only, or both).
+The `logger` package is a simple yet powerful logging library for Go applications. It supports different logging levels and multiple output options, making it flexible for various use cases.
 
 ## Features
 
-- Log messages at various levels: DEBUG, INFO, WARN, ERROR, and FATAL.
-- Choose output options: log to console, log to a file, or log to both.
-- Simple and easy to use.
+- **Log Levels**: Supports `DEBUG`, `INFO`, `WARN`, `ERROR`, and `FATAL` levels.
+- **Multiple Output Options**: Console, file, or both.
+- **Automatic Log File Naming**: If no file is specified, the log file name defaults to the executable name.
+- **Custom Log File Support**: Set a custom log file if needed.
+- **Graceful Log File Closing**: Ensures proper resource management.
 
 ## Installation
 
-To use the Logger package, you can clone the repository or use it as a module in your Go project.
+To use the `logger` package in your project, install it using:
 
 ```bash
-go get github.com/imafaz/logger
+go get github.com/AfazTech/logger/v2@latest
 ```
 
 ## Usage
 
-### Initialization
-
-To initialize the logger, use the `InitLogger` function. You need to provide the log file name and the desired output option.
+### Basic Setup
 
 ```go
 package main
 
 import (
-	"github.com/imafaz/logger"
+	"github.com/AfazTech/logger/v2"
 )
 
 func main() {
-	Logger.Init("app.log", Logger.CONSOLE_AND_FILE)
+	// Optional: Set output mode (default is CONSOLE_ONLY)
+	logger.SetOutput(logger.CONSOLE_AND_FILE)
 
-	Logger.Log(Logger.INFO, "Application started")
-	Logger.Log(Logger.DEBUG, "This is a debug message")
-	Logger.Log(Logger.ERROR, "An error occurred")
+	logger.Info("Application started")
+	logger.Debug("Debugging information")
+	logger.Warn("Warning message")
+	logger.Error("An error occurred")
 }
 ```
 
 ### Log Levels
 
-You can log messages at different levels:
+- `logger.Debug(messages ...)` – Debugging details
+- `logger.Info(messages ...)` – General information
+- `logger.Warn(messages ...)` – Warnings that may need attention
+- `logger.Error(messages ...)` – Errors that should be handled
+- `logger.Fatal(messages ...)` – Logs error and exits the program
 
-- `Logger.DEBUG`: For debug messages.
-- `Logger.INFO`: For informational messages.
-- `Logger.WARN`: For warning messages.
-- `Logger.ERROR`: For error messages.
-- `Logger.FATAL`: For fatal messages that will terminate the application.
+Example:
+
+```go
+logger.Debug("This is a debug message")
+logger.Info("User logged in successfully")
+logger.Warn("Disk space running low")
+logger.Error("Failed to connect to database")
+logger.Fatal("Critical failure - shutting down")
+```
+
+### Formatted Logging
+
+You can use formatted logging functions:
+
+```go
+logger.Infof("User %s logged in", "admin")
+logger.Errorf("Error code: %d", 500)
+```
 
 ### Output Options
 
-You can choose from the following output options:
+You can control where logs are written:
 
-- `Logger.CONSOLE_ONLY`: Log messages only to the console.
-- `Logger.FILE_ONLY`: Log messages only to a file.
-- `Logger.CONSOLE_AND_FILE`: Log messages to both the console and a file.
+- `logger.CONSOLE_ONLY` – Logs only to the console (default)
+- `logger.FILE_ONLY` – Logs only to a file
+- `logger.CONSOLE_AND_FILE` – Logs to both console and file
+
+Example:
+
+```go
+logger.SetOutput(logger.FILE_ONLY)
+```
+
+### Custom Log File
+
+By default, the log file is named after the executable. To set a custom file:
+
+```go
+logger.SetLogFile("my_logs.txt")
+```
+
+### Closing Log File
+
+Call this when your application is shutting down:
+
+```go
+logger.CloseLogFile()
+```
+
+## Optional Functions
+
+- `logger.SetOutput(option int)` – Change log output (`CONSOLE_ONLY`, `FILE_ONLY`, `CONSOLE_AND_FILE`). Default: `CONSOLE_ONLY`.
+- `logger.SetLogFile(filename string)` – Set a custom log file. Default: executable name.
+- `logger.CloseLogFile()` – Closes the log file (recommended before exit).
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
