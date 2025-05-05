@@ -1,4 +1,8 @@
-# Logger Package
+# Logger (Deprecated)
+
+> ⚠️ **This project is deprecated.**  
+> I recommend using the built-in [`log`](https://pkg.go.dev/log) package or community-maintained logging libraries like [`logrus`](https://github.com/sirupsen/logrus) or [`zerolog`](https://github.com/rs/zerolog).
+
 
 The `logger` package is a simple yet powerful logging library for Go applications. It supports different logging levels and multiple output options, making it flexible for various use cases.
 
